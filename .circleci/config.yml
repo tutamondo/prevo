@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/prevo
     docker:
-      - image: circleci/android:api-26
+      - image: circleci/android:api-29
     steps:
       - checkout
       - run:
