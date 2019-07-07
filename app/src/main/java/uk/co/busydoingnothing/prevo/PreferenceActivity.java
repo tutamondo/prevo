@@ -17,25 +17,16 @@
 
 package uk.co.busydoingnothing.prevo;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
-import android.support.v7.app.AppCompatActivity;
-import android.text.method.LinkMovementMethod;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class PreferenceActivity extends AppCompatActivity
 {

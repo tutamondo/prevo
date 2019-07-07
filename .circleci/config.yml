@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Build debug APK
           command: |
-            cat > gradle.properties <<EOF
+            cat >> gradle.properties <<EOF
             RELEASE_STORE_FILE = none
             RELEASE_STORE_PASSWORD = none
             RELEASE_KEY_ALIAS = none
