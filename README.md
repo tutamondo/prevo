@@ -1,4 +1,4 @@
-PReVo
+PReVo [![CircleCI](https://circleci.com/gh/tutamondo/prevo/tree/develop.svg?style=svg)](https://circleci.com/gh/tutamondo/prevo/tree/develop)
 =====
 
 PReVo is an android application containing a portable version of the

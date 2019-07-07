@@ -1,0 +1,57 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/prevo
+    docker:
+      - image: circleci/android:api-26
+    steps:
+      - checkout
+      - run:
+          name: Install prevodb
+          command: |
+            sudo apt-get install -y autoconf automake autopoint \
+              libglib2.0-dev pkg-config
+            git clone https://github.com/bpeel/prevodb.git ~/prevodb
+            cd ~/prevodb
+            ./autogen.sh
+            make -j
+            sudo make install
+      - run:
+          name: Download and extract Reta Vortaro
+          command: |
+            cd ~
+            wget http://reta-vortaro.de/tgz/revoxml_2019-06-11.zip
+            unzip revoxml_2019-06-11.zip
+      - run:
+          name: Generate embedded dictionary
+          command: |
+            prevodb -i $HOME/revo -o app/src/main
+      - restore_cache:
+          keys:
+            - gradle-v1-{{ .Branch }}
+            - gradle-v1-develop
+      - run:
+          name: Build debug APK
+          command: |
+            cat > gradle.properties <<EOF
+            RELEASE_STORE_FILE = none
+            RELEASE_STORE_PASSWORD = none
+            RELEASE_KEY_ALIAS = none
+            RELEASE_KEY_PASSWORD = none
+            EOF
+            ./gradlew assembleDebug
+          environment:
+      - save_cache:
+          key: gradle-v1-{{ .Branch }}
+          paths:
+            - ~/.gradle
+      - persist_to_workspace:
+          root: ~/prevo
+          paths: app/build/outputs/apk/debug/
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - build
